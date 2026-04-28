@@ -149,7 +149,7 @@ if uploaded_file:
                     """
 
                     response = client.models.generate_content(
-                        model="gemini-1.5-flash",
+                        model="gemini-2.0-flash",  # ✅ FIXED: was gemini-1.5-flash
                         contents=prompt
                     )
                     st.markdown(response.text)
@@ -165,7 +165,7 @@ if uploaded_file:
                     elif "401" in err_str:
                         st.warning("🔐 Authentication failed. Double-check your GEMINI_API_KEY in Streamlit Secrets.")
                     elif "404" in err_str or "not found" in err_str.lower():
-                        st.warning("🔍 Model not found. gemini-1.5-flash may be unavailable — try 'gemini-2.0-flash'.")
+                        st.warning("🔍 Model not found. Try updating to a newer Gemini model.")
                     else:
                         st.warning("💡 Check Manage app → Logs for full error details.")
 
