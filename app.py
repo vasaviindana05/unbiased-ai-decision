@@ -1,12 +1,11 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import google.generativeai as genai
+from google import genai
 import io
 
 # Configure Gemini
-genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-model = genai.GenerativeModel("gemini-1.5-flash")
+client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 
 # Page config
 st.set_page_config(
@@ -149,7 +148,10 @@ if uploaded_file:
                 Be specific, practical and professional.
                 """
                 
-                response = model.generate_content(prompt)
+                response = client.models.generate_content(
+                    model="gemini-1.5-flash",
+                    contents=prompt
+                )
                 st.markdown(response.text)
 
         # Download report
